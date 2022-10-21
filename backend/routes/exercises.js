@@ -39,17 +39,45 @@ router.route('/add').post((req, res) => {
 
 //this router will delete exercise against any id
 
-router.route('/:id').delete(async(req,res)=>{
-  const deleteExercise=await Exercise.findByIdAndDelete(req.params.id);
-  if(deleteExercise){
+router.route('/:id').delete(async (req, res) => {
+  const deleteExercise = await Exercise.findByIdAndDelete(req.params.id);
+  if (deleteExercise) {
     res.json("Exercise Deleted")
   }
-  else{
+  else {
     throw new Error("Can't Delete !")
   }
-  
-
 });
+
+
+//this router will get the exercise with id 
+router.route('/:id').get(async (req, res) => {
+  const exercise = await Exercise.findOne()
+  if (exercise) {
+    res.status(200).json(exercise)
+  }
+  else {
+    res.status(400)
+    throw new Error("exercise not found")
+  }
+})
+
+//this route will update exercises
+
+router.route('/update/:id').put(async (req, res) => {
+  const { username, description, duration,date } = req.body;
+   
+  
+  let upExercise=await Exercise.findByIdAndUpdate(req.params.id,{ username,
+    description,
+    duration,
+    date},{ new: true },);
+   upExercise= await upExercise.save();
+  res.json(upExercise)
+
+  });
+
+
 
 
 module.exports = router;
