@@ -1,0 +1,28 @@
+h2,h1{
+    margin: 4%;
+    text-align: center;
+    color: white;
+}
+p{
+    background-color: white;
+}
+
+table{
+
+    margin-top: 6%;
+    
+}
+body{
+    background-image: url("https://c4.wallpaperflare.com/wallpaper/727/4/1016/men-fitness-model-wallpaper-preview.jpg");
+    background-size: cover;
+}
+.thead-dark{
+    color: white;
+
+}
+tbody{
+    color: white;
+}
+label{
+    color: white;
+}
