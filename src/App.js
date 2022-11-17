@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import CreateUser from './components/CreateUser';
@@ -9,8 +10,17 @@ import ExerciseList from './components/ExerciseList'
 
 
 
-function App() {
-    
+const App=()=> 
+{
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+   if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  } 
   return (
     <>
       <Router>
@@ -24,15 +34,20 @@ function App() {
             <Route path="/createexercise" element={<CreateExercise />}>
             </Route>
             <Route path="/edit/:id" element={<EditExercise />}>
-            </Route>
+            </Route>            
           </Routes>
         </div>
-      </Router>
-
+       </Router>
+      
+      
+      <div>
+      <p>Microphone: {listening ? 'on' : 'off'}</p>
+      <button className='button' onClick={SpeechRecognition.startListening}>Start</button>
+      <button onClick={SpeechRecognition.stopListening}>Stop</button>
+      <button onClick={resetTranscript}>Reset</button>
+      <p>{transcript}</p>
+    </div>
     </>
-
-  );
-
-}
-
+  ); 
+  }
 export default App;
